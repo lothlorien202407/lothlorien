@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="精靈の森 Lothlórien 身心靈工作坊——舒緩調理、水晶圖鑑、心靈對談,完全預約制的私密療癒空間。">
+</head>
+<body style="margin:0">
+<title>精靈の森 Lothlórien</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#fbfcfa; --card:#fefefd; --mist:#e4e9e3; --mist2:#eef1ec;
+    --ink:#4a544c; --ink2:#6d7b6f; --sage:#72877a; --sage2:#9aab9d; --sage3:#b6c3b8;
+    --gold:#ab9878; --gold2:#d9cfba; --pill:#f2f4f0; --shadow:0 10px 30px rgba(90,102,92,.10);
+    --danger:#b0655c;
+  }
+  /* 全站固定為品牌海報的白底莫蘭迪色系(不隨系統深色模式變化) */
+  *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none !important}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif; font-weight:400;
+    font-size:15px; line-height:1.75; letter-spacing:.02em;
+  }
+  h1,h2,h3,.serif{font-family:'Noto Serif TC','Noto Sans TC',serif; text-wrap:balance}
+  img{max-width:100%; display:block}
+  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--mist);
+  }
+  .nav-in{max-width:1120px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+  .brand{display:flex; flex-direction:column; line-height:1.2; margin-right:auto}
+  .brand b{font-family:'Noto Serif TC',serif; font-size:17px; font-weight:600; color:var(--sage); letter-spacing:.14em}
+  .brand span{font-size:10.5px; color:var(--sage2); letter-spacing:.28em}
+  .nav-links{display:flex; gap:4px; flex-wrap:wrap}
+  .nav-links a{
+    color:var(--ink2); text-decoration:none; font-size:13.5px; padding:6px 11px; border-radius:99px; letter-spacing:.08em;
+  }
+  .nav-links a:hover{background:var(--mist2); color:var(--sage)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--mist)}
+  .hero-in{max-width:1120px; margin:0 auto; padding:72px 20px 64px; text-align:center; position:relative}
+  .hero .script{font-family:'Segoe Script','Brush Script MT',cursive; color:var(--sage2); font-size:26px; letter-spacing:.06em}
+  .hero h1{font-size:clamp(28px,5vw,44px); font-weight:600; color:var(--sage); letter-spacing:.22em; margin:10px 0 14px; text-indent:.22em}
+  .hero .sub{color:var(--ink2); font-size:15.5px; letter-spacing:.1em}
+  .hero .intro{max-width:34em; margin:26px auto 0; color:var(--ink2); font-size:14.5px; text-align:justify}
+  .hero .cta-row{display:flex; gap:12px; justify-content:center; margin-top:30px; flex-wrap:wrap}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:11px 26px; border-radius:99px;
+    font-size:14.5px; letter-spacing:.12em; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-solid{background:var(--sage); color:var(--paper); box-shadow:var(--shadow)}
+  .btn-line{border:1px solid var(--sage3); color:var(--sage)}
+  .leafbg{position:absolute; pointer-events:none; opacity:.75}
+
+  /* ---------- sections ---------- */
+  section{max-width:1120px; margin:0 auto; padding:64px 20px 8px}
+  .sec-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--mist); padding-bottom:12px; margin-bottom:28px}
+  .sec-head h2{font-size:23px; font-weight:600; color:var(--sage); letter-spacing:.18em}
+  .sec-head .en{font-family:'Segoe Script',cursive; color:var(--sage3); font-size:13px}
+  .sec-note{color:var(--ink2); font-size:13.5px; margin:-16px 0 24px}
+
+  /* ---------- service pricing ---------- */
+  .svc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px}
+  .svc-card{
+    background:var(--card); border:1px solid var(--mist); border-radius:14px; padding:22px 22px 20px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .svc-card h3{font-size:17.5px; color:var(--sage); font-weight:600; letter-spacing:.12em}
+  .svc-card .desc{font-size:13px; color:var(--ink2)}
+  .opt-row{display:flex; flex-wrap:wrap; gap:8px}
+  .opt{
+    border:1px solid var(--mist); border-radius:10px; padding:6px 12px; font-size:13px; color:var(--ink2);
+    background:var(--pill); letter-spacing:.03em;
+  }
+  .opt.sel{border-color:var(--sage); color:var(--sage); background:var(--mist2); font-weight:500}
+  .price-line{display:flex; align-items:baseline; gap:8px; margin-top:auto}
+  .price-line .p{font-family:'Noto Serif TC',serif; font-size:22px; color:var(--gold); font-weight:600; font-variant-numeric:tabular-nums}
+  .price-line .u{font-size:12px; color:var(--ink2)}
+  .add-btn{
+    align-self:flex-start; background:var(--sage); color:var(--paper); border-radius:99px;
+    padding:8px 20px; font-size:13.5px; letter-spacing:.1em;
+  }
+  .add-btn:hover{opacity:.9}
+  .add-btn.ghost{background:none; border:1px solid var(--sage3); color:var(--sage)}
+
+  /* ---------- addon grid ---------- */
+  .addon-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px}
+  .addon{
+    background:var(--card); border:1px solid var(--mist); border-radius:14px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .addon .ph{aspect-ratio:4/3; background:var(--card); overflow:hidden}
+  .addon .ph img{width:100%; height:100%; object-fit:contain; object-position:center}
+  .addon .ph.noimg{display:flex; align-items:center; justify-content:center; font-size:34px; color:var(--sage3)}
+  .addon .bd{padding:12px 14px 14px; display:flex; flex-direction:column; gap:5px; flex:1}
+  .addon .bd b{font-size:14.5px; color:var(--ink); font-weight:500; letter-spacing:.05em}
+  .addon .bd small{font-size:12px; color:var(--ink2); line-height:1.5}
+  .addon .foot{display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:8px}
+  .addon .foot .p{font-family:'Noto Serif TC',serif; color:var(--gold); font-weight:600; font-size:16.5px; font-variant-numeric:tabular-nums}
+  .mini-add{border:1px solid var(--sage3); color:var(--sage); border-radius:99px; padding:4px 14px; font-size:12.5px}
+  .mini-add:hover{background:var(--mist2)}
+
+  /* ---------- intro cards ---------- */
+  .care-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px}
+  .care{background:var(--card); border:1px solid var(--mist); border-radius:14px; overflow:hidden}
+  .care .ph{aspect-ratio:4/3; overflow:hidden; background:var(--card)}
+  .care .ph img{width:100%; height:100%; object-fit:contain; object-position:center}
+  .care .bd{padding:16px 18px 18px}
+  .care h3{color:var(--sage); font-size:16.5px; letter-spacing:.1em; margin-bottom:6px}
+  .care p{font-size:13px; color:var(--ink2); text-align:justify}
+  .care details{margin-top:8px; font-size:13px; color:var(--ink2)}
+  .care summary{cursor:pointer; color:var(--sage); font-size:12.5px; letter-spacing:.08em}
+
+  /* ---------- crystals catalog ---------- */
+  .cry-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px}
+  .cry{
+    background:var(--card); border:1px solid var(--mist); border-radius:16px; overflow:hidden;
+    display:flex; flex-direction:column; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .cry:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+  .cry .ph{aspect-ratio:4/3; overflow:hidden; background:var(--card); position:relative}
+  .cry .ph img{width:100%; height:100%; object-fit:contain; object-position:center; transition:transform .3s ease}
+  .cry:hover .ph img{transform:scale(1.03)}
+  .cry .cat{
+    position:absolute; top:10px; left:10px; background:color-mix(in srgb, var(--card) 82%, transparent);
+    backdrop-filter:blur(4px); color:var(--sage); font-size:10.5px; letter-spacing:.14em;
+    border:1px solid var(--mist); border-radius:99px; padding:2px 10px;
+  }
+  .cry .bd{padding:14px 16px 16px; display:flex; flex-direction:column; gap:7px; flex:1}
+  .cry .nm{font-family:'Noto Serif TC',serif; font-size:16.5px; font-weight:600; color:var(--sage); letter-spacing:.08em}
+  .cry .chips{display:flex; flex-wrap:wrap; gap:6px}
+  .cry .chip{
+    font-size:10.5px; letter-spacing:.1em; border-radius:99px; padding:2px 10px;
+    border:1px solid var(--gold2); color:var(--gold);
+  }
+  .cry .chip.mine{border-color:var(--sage3); color:var(--sage2)}
+  .cry .row{font-size:12px; line-height:1.7; color:var(--ink2); text-align:justify}
+  .cry .row b{font-weight:500; color:var(--sage); letter-spacing:.06em; white-space:nowrap}
+
+  /* ---------- info / contact ---------- */
+  .info-wrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px}
+  .info{background:var(--card); border:1px solid var(--mist); border-radius:14px; padding:20px 22px}
+  .info h3{color:var(--sage); font-size:16px; letter-spacing:.14em; margin-bottom:10px}
+  .info ul{list-style:none; font-size:13.5px; color:var(--ink2); display:flex; flex-direction:column; gap:6px}
+  .info li b{color:var(--ink); font-weight:500}
+  .info-lead{font-size:13.5px; color:var(--sage); line-height:1.85; margin:-2px 0 12px; text-align:justify}
+  .info ul{gap:9px; line-height:1.75}
+  .copy-chip{
+    display:inline-flex; align-items:center; gap:6px; background:var(--pill); border:1px solid var(--mist);
+    border-radius:8px; padding:3px 10px; font-size:12.5px; color:var(--sage); margin-left:6px;
+  }
+  .copy-chip:hover{border-color:var(--sage3)}
+
+  .qr-wrap{margin-top:22px; background:var(--card); border:1px solid var(--mist); border-radius:14px; padding:22px 20px 24px}
+  .qr-head{font-family:'Noto Serif TC',serif; color:var(--sage); font-size:16px; letter-spacing:.14em; text-align:center; margin-bottom:18px}
+  .qr-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:18px; max-width:720px; margin:0 auto}
+  .qr{display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:var(--ink)}
+  .qr img{width:100%; max-width:180px; aspect-ratio:1/1; object-fit:contain; background:#fff; border:1px solid var(--mist); border-radius:12px; padding:10px; margin-bottom:6px}
+  a.qr:hover img{border-color:var(--sage3)}
+  .qr b{font-size:14px; font-weight:500; color:var(--sage); letter-spacing:.1em}
+  .qr small{font-size:11.5px; color:var(--ink2)}
+
+  footer{border-top:1px solid var(--mist); margin-top:70px}
+  .foot-in{max-width:1120px; margin:0 auto; padding:34px 20px 44px; text-align:center; color:var(--sage3); font-size:12.5px; letter-spacing:.15em; line-height:2.2}
+  .foot-in .script{font-family:'Segoe Script',cursive; font-size:20px; color:var(--sage2)}
+
+  /* ---------- floating carts ---------- */
+  .fab-wrap{
+    position:fixed; right:14px; bottom:calc(12px + env(safe-area-inset-bottom,0px)); z-index:60;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .fab{
+    position:relative; display:flex; flex-direction:column; align-items:center;
+    width:74px; padding:0; background:none;
+  }
+  .fab .elf{
+    width:64px; height:auto; display:block;
+    filter:drop-shadow(0 6px 10px rgba(80,96,84,.25));
+    transform-origin:50% 100%; transition:transform .25s ease;
+    animation:elf-float 3.6s ease-in-out infinite;
+  }
+  .fab:hover .elf{transform:translateY(-2px) rotate(-3deg)}
+  .fab .fab-label{
+    margin-top:-3px; background:var(--sage); color:var(--paper); font-size:10.5px; letter-spacing:.1em;
+    border-radius:99px; padding:2px 8px 2px 9px; box-shadow:var(--shadow); white-space:nowrap;
+  }
+  @keyframes elf-float{0%,100%{translate:0 0}50%{translate:0 -3px}}
+  .fab:focus-visible{outline:2px solid var(--sage); outline-offset:4px; border-radius:12px}
+  .badge{
+    position:absolute; top:-4px; right:4px; min-width:18px; height:18px; border-radius:99px;
+    background:var(--danger); color:#fff; font-size:10.5px; display:flex; align-items:center; justify-content:center;
+    padding:0 5px; font-variant-numeric:tabular-nums; box-shadow:0 2px 6px rgba(0,0,0,.18);
+  }
+  @media (max-width:640px){ .fab .elf{width:56px} }
+
+  /* ---------- drawer ---------- */
+  .overlay{position:fixed; inset:0; background:rgba(30,40,34,.45); z-index:70}
+  .drawer{
+    position:fixed; top:0; right:0; bottom:0; width:min(430px,94vw); background:var(--paper);
+    z-index:71; box-shadow:-12px 0 40px rgba(0,0,0,.18); display:flex; flex-direction:column;
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .dw-head{padding:18px 20px 14px; border-bottom:1px solid var(--mist); display:flex; align-items:center; gap:10px}
+  .dw-head h3{font-size:17px; color:var(--sage); letter-spacing:.14em; margin-right:auto}
+  .dw-close{font-size:20px; color:var(--ink2); padding:4px 8px}
+  .dw-body{flex:1; overflow-y:auto; padding:14px 20px}
+  .dw-empty{color:var(--sage3); text-align:center; padding:60px 0; font-size:13.5px; letter-spacing:.1em}
+  .ci{display:flex; align-items:flex-start; gap:10px; padding:11px 0; border-bottom:1px dashed var(--mist)}
+  .ci .nm{flex:1; font-size:13.5px}
+  .ci .nm b{font-weight:500; color:var(--ink); display:block}
+  .ci .nm small{color:var(--ink2); font-size:11.5px}
+  .ci .pr{font-variant-numeric:tabular-nums; color:var(--gold); font-size:13.5px; white-space:nowrap; font-weight:500}
+  .qty{display:flex; align-items:center; gap:2px}
+  .qty button{width:24px; height:24px; border:1px solid var(--mist); border-radius:6px; color:var(--sage); font-size:14px; line-height:1}
+  .qty span{min-width:26px; text-align:center; font-variant-numeric:tabular-nums; font-size:13.5px}
+  .dw-foot{border-top:1px solid var(--mist); padding:14px 20px calc(16px + env(safe-area-inset-bottom,0px)); display:flex; flex-direction:column; gap:10px}
+  .total-row{display:flex; justify-content:space-between; align-items:baseline; font-size:14px}
+  .total-row .t{font-family:'Noto Serif TC',serif; font-size:21px; color:var(--gold); font-weight:600; font-variant-numeric:tabular-nums}
+  .dw-note{font-size:11.5px; color:var(--sage3); line-height:1.6}
+  .msg-box{
+    width:100%; min-height:150px; background:var(--pill); border:1px solid var(--mist); border-radius:10px;
+    padding:12px; font-family:inherit; font-size:12.5px; color:var(--ink); resize:vertical; line-height:1.7;
+  }
+  .toast{
+    position:fixed; left:50%; bottom:calc(90px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%);
+    background:var(--sage); color:var(--paper); border-radius:99px; padding:9px 22px; font-size:13px;
+    letter-spacing:.1em; z-index:99; box-shadow:var(--shadow); opacity:0; transition:opacity .25s ease; pointer-events:none;
+  }
+  .toast.show{opacity:1}
+
+  @media (max-width:640px){
+    .nav-links a{padding:5px 8px; font-size:12.5px}
+    section{padding-top:48px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important}
+  }
+</style>
+
+<nav>
+  <div class="nav-in">
+    <div class="brand"><b>精靈の森</b><span>LOTHLÓRIEN</span></div>
+    <div class="nav-links">
+      <a href="#about">關於</a>
+      <a href="#services">舒緩調理</a>
+      <a href="#addons">加購項目</a>
+      <a href="#careintro">調理介紹</a>
+      <a href="#crystals">水晶圖鑑</a>
+      <a href="#soul">心靈對談</a>
+      <a href="#visit">預約交通</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero" id="about">
+  <svg class="leafbg" style="top:-30px;right:-40px;width:300px" viewBox="0 0 210 200">
+    <g><path d="M10,190 Q100,120 195,15" stroke="#9aab9c" stroke-width="2" fill="none" opacity=".55"/>
+    <path d="M60,142 q-26,-4 -34,-30 q28,-6 40,16 z" fill="#b9c9ae" opacity=".5"/>
+    <path d="M84,120 q-8,-30 12,-48 q16,24 -2,46 z" fill="#a3b795" opacity=".45"/>
+    <path d="M112,96 q-30,-8 -36,-34 q30,-4 42,20 z" fill="#c4d2bb" opacity=".5"/>
+    <path d="M138,72 q-6,-30 16,-44 q12,26 -6,44 z" fill="#93a98c" opacity=".4"/>
+    <path d="M162,48 q-26,-10 -28,-34 q26,0 36,20 z" fill="#b0c2a4" opacity=".5"/></g>
+  </svg>
+  <svg class="leafbg" style="bottom:-40px;left:-50px;width:320px;transform:rotate(178deg)" viewBox="0 0 210 200">
+    <g><path d="M10,190 Q100,120 195,15" stroke="#9aab9c" stroke-width="2" fill="none" opacity=".45"/>
+    <path d="M60,142 q-26,-4 -34,-30 q28,-6 40,16 z" fill="#b9c9ae" opacity=".4"/>
+    <path d="M112,96 q-30,-8 -36,-34 q30,-4 42,20 z" fill="#c4d2bb" opacity=".4"/>
+    <path d="M162,48 q-26,-10 -28,-34 q26,0 36,20 z" fill="#b0c2a4" opacity=".4"/></g>
+  </svg>
+  <div class="hero-in">
+    <div class="script">Lothlórien</div>
+    <h1><span style="white-space:nowrap">精靈の森</span> <span style="white-space:nowrap">身心靈工作坊</span></h1>
+    <div class="sub">一處讓身體放鬆、讓心安靜下來的私密空間</div>
+    <p class="intro">「Lothlórien」象徵一座遠離喧囂、寧靜而充滿生命力的森林。我們在城市中打造了一處溫暖、安靜且重視隱私的空間,採完全預約制,每個時段都為您保留專屬的陪伴與休息時間。當生活累積了疲憊,歡迎回到精靈の森,好好呼吸、安靜休息,為身心靈補充再次前行的能量。</p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="#services" style="text-decoration:none">預約舒緩調理</a>
+      <a class="btn btn-line" href="#crystals" style="text-decoration:none">水晶圖鑑</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 服務價目 ================= -->
+<section id="services">
+  <div class="sec-head"><h2>舒緩調理服務</h2><span class="en">Body Care Menu</span></div>
+  <p class="sec-note">以下皆可加入「按摩購物車」,一次整理好想預約的內容,送出訊息即可完成預約洽詢。</p>
+  <div class="svc-grid">
+
+    <div class="svc-card" data-svc="general">
+      <h3>一般調理按摩</h3>
+      <div class="desc">足部與身體,兩者可任意調配時間。以溫和專業的手法,陪伴身體慢慢放鬆。</div>
+      <div class="opt-row" data-role="opts"></div>
+      <div class="price-line"><span class="p" data-role="price">NT$500</span><span class="u">/ 次</span></div>
+      <button class="add-btn" data-role="add">加入按摩購物車</button>
+    </div>
+
+    <div class="svc-card" data-svc="custom">
+      <h3>客製化健康調理</h3>
+      <div class="desc">依當下身體評估建議調理方案。經評估說明療程內容與費用、確認同意後開始。價格為約略區間,實際依評估為準。</div>
+      <div class="opt-row" data-role="opts"></div>
+      <div class="price-line"><span class="p" data-role="price">NT$2,000 起</span><span class="u">/ 次(區間價)</span></div>
+      <button class="add-btn" data-role="add">加入按摩購物車</button>
+    </div>
+
+    <div class="svc-card" data-svc="target">
+      <h3>各方位調理</h3>
+      <div class="desc">針對單一部位的精緻照顧,適合睡眠品質差、工作壓力大、產後或姿勢需調整者。</div>
+      <div class="opt-row" data-role="opts"></div>
+      <div class="price-line"><span class="p" data-role="price">NT$500</span><span class="u">/ 30分鐘</span></div>
+      <button class="add-btn" data-role="add">加入按摩購物車</button>
+    </div>
+
+    <div class="svc-card" data-svc="visit">
+      <h3>外出調理</h3>
+      <div class="desc">服務高齡長者、行動不便者、住院者及安養機構住民(台北市、新北市、醫院等)。公車可到達者免收交通費;每日服務上限 4 人。</div>
+      <div class="opt-row" data-role="opts"></div>
+      <div class="price-line"><span class="p" data-role="price">NT$800</span><span class="u">/ 人</span></div>
+      <button class="add-btn" data-role="add">加入按摩購物車</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= 加購 ================= -->
+<section id="addons">
+  <div class="sec-head"><h2>額外加購項目</h2><span class="en">Add-ons</span></div>
+  <p class="sec-note">加購項目搭配一般調理按摩使用(滿 1.5 小時,加購時間含在療程時間內)。</p>
+  <div class="addon-grid" id="addonGrid"></div>
+</section>
+
+<!-- ================= 調理介紹 ================= -->
+<section id="careintro">
+  <div class="sec-head"><h2>調理方式介紹</h2><span class="en">Our Care</span></div>
+  <div class="care-grid">
+    <div class="care">
+      <div class="ph"><img src="images/s_guasha.jpg" alt="刮痧調理" loading="lazy"></div>
+      <div class="bd">
+        <h3>刮痧調理</h3>
+        <p>使用邊緣圓潤的刮痧板搭配適當介質,在需要放鬆的部位規律刮拭,以舒適、安全、不勉強出痧為原則。先溝通、再調整、不強求——痧色深淺因人而異,不以越深越多為目標。</p>
+        <details><summary>刮痧後的溫柔照顧</summary>避免立即受強風、過熱過冷刺激,不用力搓洗刮拭部位;適量補充溫水;同一部位待痧痕完全消退後再安排下一次調理。若有傷口、易出血或特殊用藥情形,預約前請先告知。</details>
+      </div>
+    </div>
+    <div class="care">
+      <div class="ph"><img src="images/s_cupping.jpg" alt="拔罐調理" loading="lazy"></div>
+      <div class="bd">
+        <h3>拔罐調理</h3>
+        <p>利用罐內負壓輕柔吸附肌膚,依當天疲勞位置、肌膚狀態與承受度調整部位、吸力及時間。罐印不是越深越有效,我們更重視您的舒適感與肌膚狀態。</p>
+        <details><summary>認識罐印</summary>淺紅粉紅屬溫和反應,會逐漸淡去;鮮紅紫紅受吸力、時間與個人狀態影響;顏色深不代表效果好或排毒多。拔罐後保持罐印部位乾淨、避免用力搓洗,給肌膚足夠時間恢復。</details>
+      </div>
+    </div>
+    <div class="care">
+      <div class="ph"><img src="images/s_fascia.jpg" alt="筋膜刀放鬆" loading="lazy"></div>
+      <div class="bd">
+        <h3>筋膜刀放鬆</h3>
+        <p>以邊緣圓潤的工具搭配適當介質在皮膚表面滑動,提供與手指不同面積與觸感的放鬆方式。適合長時間維持相同姿勢後的緊繃感,依部位與承受度細緻調整角度與力道。</p>
+        <details><summary>三步驟照顧</summary>先了解最想放鬆的部位與肌膚狀態;再選擇合適的工具面、角度、範圍與力道;過程中若出現刺痛、灼熱或不適,會立即降低力道或停止。不追求泛紅與瘀青。</details>
+      </div>
+    </div>
+    <div class="care">
+      <div class="ph"><img src="images/s_oil.jpg" alt="全身精油調理" loading="lazy"></div>
+      <div class="bd">
+        <h3>全身精油調理</h3>
+        <p>依膚況、香氣喜好與當日感受挑選油品,搭配流暢柔和的按摩手法。可選用菠丹妮【Botanicus】玫瑰香體凝脂,或是澳洲【NEW DIRECTIONS】甜杏仁油+ND精油調配,滋潤肌膚也安放心情。</p>
+        <details><summary>預約前小提醒</summary>若對香氣、堅果或特定植物成分敏感、正值孕期,或肌膚有傷口與明顯不適,請事先告知;首次使用可先做局部測試。</details>
+      </div>
+    </div>
+    <div class="care">
+      <div class="ph"><img src="images/s_ultra.jpg" alt="超音波與頸部拉伸" loading="lazy"></div>
+      <div class="bd">
+        <h3>超音波 × 頸部拉伸器</h3>
+        <p>依當天身體感受,將超音波或頸部拉伸器安排在按摩前後,搭配溫和手法讓休息時光更完整。重視的不是強度,而是您的感受——溫和開始、隨時調整、保留選擇。</p>
+      </div>
+    </div>
+    <div class="care">
+      <div class="ph"><img src="images/s_face.jpg" alt="臉部精緻調理" loading="lazy"></div>
+      <div class="bd">
+        <h3>臉部與身體保養</h3>
+        <p>臉部護理、全身去角質及肌膚保養。臉部精緻調理以溫和手法照顧輪廓與緊繃,適合睡眠品質差、工作壓力大、精神緊繃者。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 水晶 ================= -->
+<section id="crystals">
+  <div class="sec-head"><h2>森林の水晶圖鑑</h2><span class="en">Crystal Atelier</span></div>
+  <p class="sec-note">客製化水晶設計——每一款水晶都有屬於自己的五行、能量與對應部位,歡迎慢慢瀏覽這座森林的水晶圖鑑。<b style="color:var(--gold)">水晶品項請親臨工作室現場挑選</b>,親手感受每一顆石頭的緣分與能量;喜歡的款式皆可依手圍訂製,歡迎先透過 LINE(lothlorien202407)預約來訪時間。</p>
+  <div class="cry-grid" id="cryGrid"></div>
+</section>
+
+<!-- ================= 心靈對談 ================= -->
+<section id="soul">
+  <div class="sec-head"><h2>森林の心靈對談</h2><span class="en">Soul Talk</span></div>
+  <div class="svc-card" style="max-width:760px">
+    <h3>給心一個被聽見的地方</h3>
+    <div class="desc" style="font-size:13.5px">
+      有些事情,不一定需要立刻找到答案;有些心情,只是需要有人願意靜靜地聽。我們透過靜心聆聽、雙向對談與內在整理,陪伴您慢慢說出心裡的話——包含心情傾聽與心靈陪伴、人生方向釐清、家庭感情人際議題、靜心與內在探索、靈性陪伴與能量平衡。<br><br>
+      <span style="font-size:12px;color:var(--sage3)">＊本服務以心靈陪伴、靜心對談、信仰與個人靈性探索為主,不屬於醫療、心理治療或其他醫事行為;如有身心健康或醫療需求,仍請尋求合格醫療及心理專業人員協助。費用與時段請透過 LINE 洽詢。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 預約交通 ================= -->
+<section id="visit">
+  <div class="sec-head"><h2>預約與交通</h2><span class="en">Visit Us</span></div>
+  <div class="info-wrap">
+    <div class="info">
+      <h3>預約方式</h3>
+      <p class="info-lead">每一段來到森林的時光,都值得被好好安排。我們採完全預約制,讓每個時段只屬於您一人——不必等待、不必趕時間,可以放心地把自己交給這段休息。</p>
+      <ul>
+        <li>每月開放<b>次月</b>預約排程,名額有限,建議您提早與我們聯繫</li>
+        <li><b>預約電話</b>|(02)8768-1278 朱老師 <button class="copy-chip" data-copy="0287681278">複製</button></li>
+        <li><b>聯絡電話</b>|0963-988-366 朱老師 <button class="copy-chip" data-copy="0963988366">複製</button></li>
+        <li><b>預約 LINE</b>|lothlorien202407 <button class="copy-chip" data-copy="lothlorien202407">複製</button></li>
+        <li>預約時可以告訴我們您方便的日期時段、最近身體比較緊繃或不舒服的地方,我們會為您預先規劃最合適的調理方式</li>
+      </ul>
+    </div>
+    <div class="info">
+      <h3>地址與交通</h3>
+      <ul>
+        <li><b>地址</b>|台北市忠孝東路五段295巷</li>
+        <li style="background:var(--mist2);border-radius:10px;padding:10px 12px;margin:2px 0 4px;line-height:1.8">🌿 精靈の森採<b>一對一預約服務</b>,為了讓每一位來訪的您,都能擁有一段安心、不被打擾的私人時光,工作室的完整地址將在預約完成後,以 LINE 溫柔地與您分享。謝謝您的理解,這份小小的用心,是為了守護屬於您的寧靜空間。</li>
+        <li><b>捷運</b>|永春站 1 號出口</li>
+        <li><b>公車</b>|市立工農站(33、66、212、232、263、270、281、284、600、611、棕18、忠孝幹線、仁愛幹線)、富台公園站(藍7、藍7副)</li>
+        <li><b>停車</b>|宜舍松信平面停車場、南松山收費停車場(忠孝東路五段293號B1)、宜舍永吉120(二)</li>
+      </ul>
+    </div>
+    <div class="info">
+      <h3>溫馨提醒</h3>
+      <p class="info-lead">為了讓您這一趟來得輕鬆、待得安心,有幾件小事想先跟您分享。</p>
+      <ul>
+        <li>預約確認後,我們會透過 LINE 把完整地址與進門方式傳給您,讓您不用擔心找不到路,安心地出發就好</li>
+        <li>抵達附近或停好車時,傳個 LINE 給我們,我們會下樓迎接您,一起慢慢走上來</li>
+        <li>建議提早 5~10 分鐘抵達,先喝口水、讓呼吸緩下來,身體會更容易進入放鬆的狀態</li>
+        <li>若臨時有事需要更改時間,請盡早告訴我們,我們會盡力為您重新安排</li>
+        <li>若家中長輩行動不便、住院或住在安養機構,我們也提供外出調理,帶著溫柔的手法到府陪伴;如需攜帶行動按摩床,計程車來回費用實報實銷</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qr-wrap">
+    <div class="qr-head">掃描 QR code,加入精靈の森</div>
+    <div class="qr-row">
+      <a class="qr" href="https://line.me/ti/p/2rndc8vXEZ" target="_blank" rel="noopener">
+        <img src="images/qr_line.png" alt="LINE 預約 QR code" loading="lazy">
+        <b>LINE 預約</b><small>lothlorien202407</small>
+      </a>
+      <a class="qr" href="https://www.facebook.com/profile.php?id=61574212138294" target="_blank" rel="noopener">
+        <img src="images/qr_fb.png" alt="Facebook 粉絲專頁 QR code" loading="lazy">
+        <b>FB 粉絲專頁</b><small>追蹤最新活動</small>
+      </a>
+      <a class="qr" href="https://www.instagram.com/lothlorien202407/" target="_blank" rel="noopener">
+        <img src="images/qr_ig.png" alt="Instagram 官方帳號 QR code" loading="lazy">
+        <b>IG 官網</b><small>@lothlorien202407</small>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="script">Lothlórien</div>
+    精靈の森 身心靈工作坊<br>
+    用心呵護您,從放鬆開始 ♡<br>
+    台北市忠孝東路五段295巷 · (02)8768-1278
+  </div>
+</footer>
+
+<!-- ================= floating carts ================= -->
+<div class="fab-wrap">
+  <button class="fab" id="fabMassage" aria-label="按摩購物車"><img class="elf" src="images/elf_cart.png" alt=""><span class="fab-label">按摩車</span><span class="badge" id="badgeM" hidden>0</span></button>
+</div>
+
+<div class="overlay" id="overlay" hidden></div>
+
+<div class="drawer" id="drawerM" hidden>
+  <div class="dw-head"><img src="images/elf_cart.png" alt="" style="width:36px;height:auto"><h3>按摩購物車</h3><button class="dw-close" data-close>✕</button></div>
+  <div class="dw-body" id="bodyM"></div>
+  <div class="dw-foot">
+    <div class="total-row"><span>合計(客製化以區間下限計)</span><span class="t" id="totalM">NT$0</span></div>
+    <div class="dw-note">＊客製化健康調理與骨盆旋轉調理之金額,以現場評估為準;外出調理如需計程車運送行動床,費用實報實銷。</div>
+    <button class="btn btn-solid" id="checkoutM" style="justify-content:center">產生預約訊息</button>
+  </div>
+</div>
+
+<div class="drawer" id="drawerMsg" hidden>
+  <div class="dw-head"><h3 id="msgTitle">預約訊息</h3><button class="dw-close" data-close>✕</button></div>
+  <div class="dw-body">
+    <p style="font-size:13px;color:var(--ink2);margin-bottom:10px">訊息內容如下,可直接修改。複製後貼到 LINE(ID:<b>lothlorien202407</b>)即可完成預約/詢價:</p>
+    <textarea class="msg-box" id="msgBox"></textarea>
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn btn-solid" id="copyMsg">複製訊息</button>
+      <a class="btn btn-line" href="https://line.me/R/ti/p/~lothlorien202407" target="_blank" rel="noopener" style="text-decoration:none">開啟 LINE</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= data ================= */
+const SVC = {
+  general: {
+    name: '一般調理按摩',
+    opts: [
+      {label:'30分鐘', price:500},{label:'60分鐘', price:1000},{label:'90分鐘', price:1500},
+      {label:'120分鐘', price:2000},{label:'150分鐘', price:2500},{label:'180分鐘', price:3000},
+      {label:'210分鐘', price:3500},{label:'240分鐘', price:4000},{label:'270分鐘', price:4500}
+    ],
+    fmt: o => 'NT$' + o.price.toLocaleString(), unit:'/ 次'
+  },
+  custom: {
+    name: '客製化健康調理',
+    opts: [
+      {label:'90分鐘', price:2000, hi:2500},{label:'120分鐘', price:2500, hi:3000},
+      {label:'150分鐘', price:3000, hi:3500},{label:'180分鐘', price:3500, hi:4000},
+      {label:'210分鐘', price:4000, hi:4500},{label:'240分鐘', price:4500, hi:5000}
+    ],
+    fmt: o => 'NT$' + o.price.toLocaleString() + '–' + o.hi.toLocaleString(), unit:'/ 次(區間價)', range:true
+  },
+  target: {
+    name: '各方位調理',
+    opts: [
+      {label:'頭部放鬆調理 30分', price:500},
+      {label:'臉部精緻調理 30分', price:1800},
+      {label:'骨盆旋轉調理 30分(需評估)', price:1200}
+    ],
+    fmt: o => 'NT$' + o.price.toLocaleString(), unit:'/ 30分鐘'
+  },
+  visit: {
+    name: '外出調理',
+    opts: [
+      {label:'30分鐘/人', price:800},{label:'60分鐘/人', price:1500},
+      {label:'90分鐘/人', price:2000},{label:'120分鐘/人', price:2500}
+    ],
+    fmt: o => 'NT$' + o.price.toLocaleString(), unit:'/ 人'
+  }
+};
+
+const ADDONS = [
+  {id:'a1', name:'特選天然精油', price:200, img:'images/s_oil.jpg',   note:'菠丹妮【Botanicus】玫瑰香體凝脂或澳洲【NEW DIRECTIONS】甜杏仁油+ND精油調配'},
+  {id:'a2', name:'特殊藥油塗抹', price:200, img:'images/s_balm.jpg',  note:'推拿舒緩,加強放鬆'},
+  {id:'a3', name:'刮痧',         price:300, img:'images/s_guasha.jpg',note:'上半身或下半身擇一'},
+  {id:'a4', name:'拔罐或滑罐',   price:300, img:'images/s_cupping.jpg',note:'上半身或下半身擇一'},
+  {id:'a5', name:'艾草溫罐',     price:500, img:'images/s_warmcup.jpg',note:'溫熱艾草,暖宮舒緩'},
+  {id:'a6', name:'筋膜刀(單一部位)', price:500, img:'images/s_fascia.jpg', note:'肩頸、背、手、大小腿'},
+  {id:'a7', name:'超音波 10分鐘', price:200, img:'images/s_ultra.jpg', note:'按摩過程中的溫和輔助'},
+  {id:'a8', name:'ISAT AMTC 活化器', price:800, img:'images/s_gun.jpg', note:'細部調整軀幹帶肌肉放鬆'},
+  {id:'a9', name:'全身磨砂',     price:1000, img:'images/s_scrub.jpg', note:'全身去角質,肌膚滑嫩'}
+];
+
+const CRYSTALS = [
+  {img:'c46.jpg', name:'薰衣草紫水晶', tag:'手鍊', wx:'火', mine:'石英家族', body:'眉心輪・頂輪|頭部', fx:'如清晨薰衣草田般的柔霧紫,是紫水晶中最溫柔的色調。能安神舒眠、緩解思緒過載與睡前的紛亂,讓緊繃的神經慢慢放鬆;同時提升直覺與內在覺察,適合淺眠多夢、長期用腦與想為自己留一份寧靜的人。'},
+  {img:'c23.jpg', name:'烏拉圭紫水晶', tag:'手鍊', wx:'火', mine:'石英家族', body:'眉心輪・頂輪|頭部', fx:'烏拉圭產地以濃郁深邃的紫色聞名,晶體通透、紫得發亮。對應智慧與靈性,能開發智力、增強記憶與專注,是學生與腦力工作者的良伴;也是知名的社交貴人石,替配戴者廣結善緣、吸引良師益友。'},
+  {img:'c49.jpg', name:'雙紫水晶', tag:'手鍊', wx:'火', mine:'石英家族', body:'眉心輪・頂輪|頭部', fx:'深淺兩色紫韻交映成趣,一鍊同時擁有濃紫的沉穩與淺紫的柔和。能平衡理性與感性、安定起伏的情緒,幫助在忙亂中保持清明思緒;層次分明的色澤也讓整體配戴質感更出眾。'},
+  {img:'c28.jpg', name:'紫兔毛', tag:'手鍊', wx:'火', mine:'石英家族(含針狀礦物)', body:'心輪・眉心輪|胸口', fx:'晶體中細密的針狀礦物如兔毛般柔軟,又稱「維納斯水晶」。專屬女性的能量之石,滋養女性磁場、調和內在節奏,增添由內而外的溫柔魅力;也有助人緣與感情運,讓相處多一份柔軟與包容。'},
+  {img:'c29.jpg', name:'紫鋰輝', tag:'手鍊', wx:'火', mine:'鋰輝石家族', body:'心輪|胸口・情緒', fx:'薰衣草色的鋰輝石,象徵「無條件的愛」。內含的鋰元素能量溫和深層,能撫平焦慮、緊張與情緒耗竭,像被溫柔擁抱般帶來安心感;開啟心輪與頂輪的連結,釋放累積的壓力,夜晚配戴更有助安穩好眠。'},
+  {img:'c27.jpg', name:'紫水晶手排', tag:'手排', wx:'火', mine:'石英家族', body:'眉心輪・頂輪|頭部', fx:'寬版珠片相連的大氣手排款,紫水晶的智慧與貴人能量以更完整的面積貼合手腕。安神定心、提升整體氣場,配戴時存在感十足;適合喜歡沉穩大器風格、想同時兼顧能量與型格的人。'},
+  {img:'c31.jpg', name:'黃水晶', tag:'手鍊', wx:'土', mine:'石英家族', body:'太陽神經叢|腸胃・腹部', fx:'金黃透亮的「商人之石」,直接對應掌管自信與行動的太陽神經叢。是最經典的招正財水晶,聚財納福、旺事業生意,幫助理性規劃財務、穩健累積財富;同時增強自信與果斷力,讓每個決定更有底氣。'},
+  {img:'c30.jpg', name:'鈦晶', tag:'手鍊', wx:'金', mine:'石英家族(含金紅石)', body:'太陽神經叢|腰腹', fx:'晶體中閃耀的金色鈦絲象徵權勢與財富,被譽為「帝王之石」。強力招正財偏財、旺事業擋煞,氣場強大;增強決斷力與領導魄力,是生意人、主管與衝刺事業者的首選,配戴時自帶不容忽視的存在感。'},
+  {img:'c13.jpg', name:'金太陽(高品)', tag:'手鍊', wx:'火', mine:'長石家族(含赤鐵礦)', body:'太陽神經叢|腹部', fx:'高品級晶體內的赤鐵礦閃光如陽光灑落,每一顆都金燦耀眼。能驅散陰霾與低潮,替身心注入源源不絕的正能量;提升自信心、行動力與領導魅力,幫助在人群中自然發光,也有招正財、旺人氣的作用。'},
+  {img:'c04.jpg', name:'太陽石', tag:'手鍊', wx:'火', mine:'長石家族', body:'太陽神經叢|腹部', fx:'如暖陽般的橙金色澤,是驅散憂鬱的快樂之石。帶來樂觀開朗的心境與說走就走的行動力,掃除累積的負能量與倦怠;適合容易想太多、心情低落,或正需要一股向前衝勁的時刻配戴。'},
+  {img:'c14.jpg', name:'金虎眼石', tag:'手鍊', wx:'金', mine:'石英家族(纖維矽化)', body:'太陽神經叢|腹部', fx:'虎眼流轉的金色絲光如猛虎之眼,自古便是招財辟邪的勇氣之石。能增強決斷力與執行力,幫助看準目標勇敢出手;同時守護出入平安、抵禦外來負能量,是事業與行旅的護身好夥伴。'},
+  {img:'c32.jpg', name:'黃虎眼石', tag:'手鍊', wx:'土', mine:'石英家族(纖維矽化)', body:'太陽神經叢|腹部', fx:'金黃明亮的虎眼光帶隨腕間流轉,象徵果敢與財氣。能穩定搖擺不定的意志、化解猶豫不決,讓思考更務實落地;對應土性的沉穩能量,也有助聚財守財,踏實累積屬於自己的豐盛。'},
+  {img:'c47.jpg', name:'藍虎眼石', tag:'手鍊', wx:'水', mine:'石英家族(纖維矽化)', body:'喉輪・眉心輪|頸肩・眼部', fx:'藍黑絲光如鷹眼般深邃銳利,又稱鷹眼石。能帶來冷靜的洞察力,幫助在紛亂資訊中看清全局、做出清晰決策;舒緩壓力與緊繃的神經,適合步調快速、需要時刻保持理智的現代工作者。'},
+  {img:'c15.jpg', name:'金絲玉(桃花釀)', tag:'手鍊', wx:'土', mine:'石英質玉', body:'心輪|胸口', fx:'暖甜的釀蜜色澤如桃花釀成的酒,溫潤中透著甜意。招桃花與好人緣,讓相遇多一份緣分與好感;玉質溫養身心、涵養氣質,配戴日久更顯潤澤,是低調而迷人的人緣之石。'},
+  {img:'c10.jpg', name:'西柚粉晶', tag:'手鍊', wx:'火', mine:'石英家族(粉晶)', body:'心輪|胸口', fx:'如西柚果肉般清甜的粉橘色調,比一般粉晶多了一份活潑元氣。對應心輪,招人緣桃花、溫柔滋潤感情運;也能柔化緊繃的心,讓自己先被溫柔對待,再把好的能量帶給身邊的人。'},
+  {img:'c18.jpg', name:'紅膠花', tag:'手鍊', wx:'火', mine:'石英家族(粉晶類)', body:'心輪|胸口', fx:'晶體中天然暈染的花形紋理,如花瓣在水中緩緩綻放。嬌嫩的色澤帶著溫柔療癒力,能撫慰情感的疲憊與失落,喚回柔軟開放的心;每一顆花紋皆獨一無二,是專屬於自己的一朵花。'},
+  {img:'c44.jpg', name:'摩根石(高品)', tag:'手鍊', wx:'火', mine:'綠柱石家族', body:'心輪|胸口', fx:'高品級摩根石晶體通透、粉彩勻淨,與祖母綠、海藍寶同屬綠柱石家族。是知名的「愛的療癒石」,能開啟心輪、療癒情感創傷,帶來被愛與安全感;守護婚姻與感情和諧,也讓單身者散發溫柔迷人的氣質。'},
+  {img:'c45.jpg', name:'摩根石', tag:'手鍊', wx:'火', mine:'綠柱石家族', body:'心輪|胸口', fx:'柔和的蜜桃粉彩,溫潤而不張揚。增進伴侶間的體諒與包容,讓溝通多一份耐心與溫度;日常配戴能柔化整體氣質,由內而外散發親切迷人的好感度,是感情運的溫柔守護者。'},
+  {img:'c17.jpg', name:'紅綠寶', tag:'手鍊', wx:'火・木', mine:'紅寶石與黝簾石共生', body:'心輪・海底輪|胸口・下盤', fx:'紅寶石與綠色黝簾石天然共生,一石同時擁有火的熱情與木的生機。紅色喚醒勇氣與生命力,綠色帶來成長與豐盛,兩股能量相輔相成;適合想突破現狀、為生活重新注入活力的人。'},
+  {img:'c12.jpg', name:'沙弗萊(高品)', tag:'手鍊', wx:'木', mine:'石榴石家族(鈣鋁榴石)', body:'心輪|胸口', fx:'珍稀的翠綠色石榴石,高品級晶體綠意鮮活、火光閃爍。被視為「財富與再生之石」,能激發生命力、加速能量流動,帶來豐盛與繁榮;同時穩定心緒、增強耐力,陪伴長期目標穩健達成。'},
+  {img:'c41.jpg', name:'綠草莓晶(高品)', tag:'手鍊', wx:'木', mine:'石英家族', body:'心輪|胸口', fx:'晶體中細密的綠色礦物點如草莓籽般可愛,有「事業草莓」之稱。同時匯聚人緣與財緣,招正財、貴人與好機會,特別適合業務與創業者;溫潤的綠色能量也能安定心神,替忙碌的身心充電。'},
+  {img:'c42.jpg', name:'綠髮晶', tag:'手鍊', wx:'木', mine:'石英家族(含綠髮礦)', body:'心輪|胸肺', fx:'透亮晶體中包裹著綠色髮絲,如春天抽出的新芽。是正財與事業之石,象徵生機蓬勃、事業穩健成長;也對應健康長青的祝福,幫助身心維持在充滿活力的頻率上,越戴越有精神。'},
+  {img:'c40.jpg', name:'綠月光石', tag:'手鍊', wx:'木', mine:'長石家族', body:'心輪・眉心輪|胸口・頭部', fx:'溫潤的綠色光暈在珠面緩緩流轉,兼具月光石的溫柔與綠色的療癒。能安神助眠、柔化易怒與焦躁的情緒;增強直覺與同理心,讓人際互動更圓融,也被視為守護愛情的溫柔之石。'},
+  {img:'c36.jpg', name:'葡萄石', tag:'手鍊', wx:'木', mine:'葡萄石(矽酸鹽)', body:'心輪|肝膽區', fx:'如剝好的青葡萄般晶瑩剔透,清爽的綠意讓人一眼放鬆。是「希望之石」,能輕盈地療癒疲憊、放下反覆的擔憂,幫助安心規劃未來;傳統上也對應肝膽區的保養意象,提醒自己好好休息。'},
+  {img:'c03.jpg', name:'天山翠', tag:'手鍊', wx:'木', mine:'輝石玉(翡翠類)', body:'心輪|胸口', fx:'來自天山的清透翠色,玉質細膩、綠意盈盈。守護健康與財運,溫養平和沉靜的心境;東方傳統中玉能養人,日常配戴讓氣質溫潤內斂,也為生活添一抹山林般的清新。'},
+  {img:'c11.jpg', name:'佘太翠', tag:'手鍊', wx:'木', mine:'石英質玉', body:'心輪|胸口', fx:'溫潤含蓄的玉質色澤,白綠相間如霧中山色。象徵平安納福,是長輩也喜愛的傳統守護石;質地沉靜安穩,日常配戴不張揚卻自有韻味,陪伴每個平凡日子都安然順遂。'},
+  {img:'c16.jpg', name:'柚玉', tag:'手鍊', wx:'木', mine:'石英質玉', body:'心輪|胸口', fx:'清新的柚子色澤,黃綠之間透著初夏的爽朗。溫潤養心、紓解鬱悶,為生活增添清爽好心情;色調百搭好配戴,是日常穿搭裡恰到好處的一點清新亮色。'},
+  {img:'c51.jpg', name:'魔鬼海藍寶(高品)', tag:'手鍊', wx:'水', mine:'綠柱石家族', body:'喉輪|咽喉・呼吸道', fx:'高品級「魔鬼藍」色調濃郁如深海,是海藍寶中最具存在感的藍。對應喉輪,帶來勇氣與清晰溝通,幫助把心裡的話好好說出口;自古也是航海者的護身石,守護旅途平安、心緒平靜。'},
+  {img:'c48.jpg', name:'藍磷灰', tag:'手鍊', wx:'水', mine:'磷灰石(磷酸鹽)', body:'喉輪|咽喉', fx:'湛藍中帶著絲絨光澤,如熱帶海域的漸層藍。直接對應喉輪,大幅增強表達力與說服力,適合教師、業務與經常需要開口的工作者;也能激發靈感與創意,讓想法源源不絕地流動。'},
+  {img:'c05.jpg', name:'太赫茲石', tag:'手鍊', wx:'金', mine:'高純度矽晶', body:'全身循環|手腕・肩頸', fx:'高純度矽晶製成,導熱速度極快,握在手中先沁涼後回溫,觸感十分特別。近年人氣極高的保健能量石,溫熱交替的特性常用於舒壓放鬆;鏡面般的金屬光澤,配戴起來俐落有型。'},
+  {img:'c06.jpg', name:'日本白水晶', tag:'手鍊', wx:'金', mine:'石英家族', body:'頂輪|全身', fx:'日本產地的白水晶晶質通透稀有,是「水晶之王」中的優等生。能量純淨強大,淨化自身與空間磁場、平衡七輪;作為基礎款可放大其他水晶的能量,百搭耐看,是入門與進階都值得擁有的一條。'},
+  {img:'c50.jpg', name:'爆花白水晶', tag:'手鍊', wx:'金', mine:'石英家族(內含晶花)', body:'頂輪|全身', fx:'晶體內天然的冰裂紋在光下折射出彩虹光暈,如花火在水晶中綻放。象徵「好事發生、花開富貴」,淨化開運兼具視覺驚喜;每顆爆花都獨一無二,轉動手腕就能看見不同的光景。'},
+  {img:'c09.jpg', name:'白水晶手排', tag:'手排', wx:'金', mine:'石英家族', body:'頂輪|全身', fx:'寬版珠片的大氣手排,白水晶純淨的能量以完整面積貼合手腕。強力淨化、穩定磁場,幫助思緒清明、氣場乾淨;素雅百搭不挑風格,是能從日常戴到重要場合的基礎能量款。'},
+  {img:'c19.jpg', name:'茶晶', tag:'手鍊', wx:'土', mine:'石英家族(煙晶)', body:'海底輪|下盤・雙腿', fx:'沉穩的茶褐色如大地般安定,對應海底輪的接地能量。能安定浮躁的心緒、化解焦慮與雜念,強化腳踏實地的行動力;適合想法多但難以落實、或容易緊張失眠的人,幫助把能量穩穩扎根。'},
+  {img:'c43.jpg', name:'銀耀石', tag:'手鍊', wx:'水', mine:'火山玻璃(黑曜岩類)', body:'海底輪|下盤', fx:'黑色晶體中流轉著神秘的銀色眼光,是黑曜岩家族中的優雅款。守護辟邪、吸收負能量,替配戴者築起溫柔而堅定的防護罩;適合夜歸、出入醫院或人多場所,以及容易感到能量疲憊的人。'},
+  {img:'c35.jpg', name:'黑髮晶', tag:'手鍊', wx:'水', mine:'石英家族(含黑電氣石)', body:'海底輪|下背・雙腿', fx:'透亮晶體中根根分明的黑色髮絲,是氣場強大的「領袖之石」。辟邪擋煞、吸收周遭負能量,替高壓環境中的自己撐起防護;增強膽識、意志力與領導氣場,陪伴事業穩步向上。'},
+  {img:'c33.jpg', name:'黑金超七(高品)', tag:'手鍊', wx:'土・水', mine:'石英家族(多礦共生)', body:'全身七輪', fx:'高品級晶體中金色髮絲濃密閃耀,與多種礦物共生共融。能量強勁而沉穩,擋煞護身兼招正財偏財;增強意志力與抗壓性,是事業衝刺期、轉換跑道時最有力的隨身後盾。'},
+  {img:'c34.jpg', name:'黑金超七', tag:'手鍊', wx:'土・水', mine:'石英家族(多礦共生)', body:'全身七輪', fx:'黑金色調的多礦共生水晶,沉穩中透著內斂的金光。增強意志與抗壓性,幫助在挑戰面前站穩腳步;兼具擋煞與招財的雙重能量,低調有型,男女皆宜的日常防護款。'},
+  {img:'c20.jpg', name:'彩超七', tag:'手鍊', wx:'五行俱全', mine:'石英家族(七礦共生)', body:'全身七輪', fx:'一石之中含紫水晶、白水晶、煙晶、髮晶等七種礦物,能量全面而均衡。對應人體七大脈輪,同步淨化、平衡與強化全身氣場;五行俱全的特性不挑體質,是進階收藏與日常配戴兼得的全能之選。'},
+  {img:'c21.jpg', name:'彩碧璽', tag:'手鍊', wx:'五行俱全', mine:'電氣石家族', body:'全身七輪', fx:'集紅、綠、黃、藍等多色於一鍊的「願望石」,繽紛如把彩虹戴在手上。碧璽帶有微量電氣,能活化氣場、促進身心循環;多色對應多輪,旺人緣與健康,看著就讓心情明亮起來。'},
+  {img:'c22.jpg', name:'彩髮晶', tag:'手鍊', wx:'五行俱全', mine:'石英家族(多色髮絲)', body:'全身七輪', fx:'金髮、綠髮、黑髮等多色髮晶匯聚一鍊,一次補足多元能量。聚財旺運、活絡氣場,不同色彩的髮絲在光下各自閃耀;適合喜歡豐富層次感、想把多種好能量一次戴齊的人。'},
+  {img:'c01.jpg', name:'2mm 水晶鍊', tag:'項鍊', wx:'依石種', mine:'依搭配水晶', body:'頸部・鎖骨', fx:'極細緻的 2mm 小珠水晶鍊,貼頸配戴輕盈無感,單戴是低調的鎖骨鍊,加上吊墜又是另一種風景。多種石種可選,依自己的五行與喜好搭配,是日常疊戴的百搭基本款。'},
+  {img:'c02.jpg', name:'3mm 水晶鍊', tag:'項鍊', wx:'依石種', mine:'依搭配水晶', body:'頸部・鎖骨', fx:'3mm 珠徑存在感恰到好處,比 2mm 更顯色、又不失細膩。可依需求挑選對應的水晶石種,讓能量貼近頸間陪伴整日;單戴、疊戴、配墜都合適,實戴度極高。'},
+  {img:'c08.jpg', name:'水晶項鍊', tag:'項鍊', wx:'依石種', mine:'依搭配水晶', body:'頸部・胸口', fx:'優雅的水晶墜飾貼近心輪位置,讓石頭的能量整日與心貼近。墜型與石種皆可依個人需求訂製搭配,送禮或自用都有專屬感;讓喜歡的水晶不只戴在手上,也守護在胸前。'},
+  {img:'c07.jpg', name:'水晶蛋', tag:'擺件', wx:'依石種', mine:'天然水晶', body:'居家空間', fx:'圓潤飽滿的蛋形象徵圓滿與新生,將水晶能量凝聚成最溫柔的形狀。安放於居家角落、書桌或床頭,守護空間和諧安定;握在掌心溫潤服貼,也是靜心冥想時的好夥伴。'},
+  {img:'c24.jpg', name:'黃水晶晶簇', tag:'擺件', wx:'土', mine:'石英家族', body:'居家・店面空間', fx:'金黃晶柱向四方綻放的天然晶簇,是空間裡的聚財發射台。招財聚寶、淨化環境磁場,適合擺放於店面收銀台、辦公桌或家中財位;隨身飾品放在晶簇上,還能順便消磁充電,一座多用。'},
+  {img:'c25.jpg', name:'發財水晶樹(款式一)', tag:'擺件', wx:'木・土', mine:'天然碎石工藝', body:'玄關・辦公桌', fx:'天然碎石以銅線細細纏繞成樹,枝葉舒展、生生不息。樹木象徵成長與繁盛,招財開運節節高升;安放於玄關或辦公桌,每天出門前看一眼,提醒自己往上生長,也是開業賀禮的體面之選。'},
+  {img:'c26.jpg', name:'發財水晶樹(款式二)', tag:'擺件', wx:'木・土', mine:'天然碎石工藝', body:'玄關・收銀台', fx:'滿樹晶石如結實纍纍的果,寓意財葉茂盛、好運連年。為空間注入豐盛意象,綠黃色調放在哪裡都亮眼;搭配聚寶盆造型的底座,聚財納福的心意一目瞭然。'},
+  {img:'c37.jpg', name:'雷公蛋(款式一)', tag:'擺件', wx:'土', mine:'瑪瑙(隱晶質石英)', body:'桌面・櫃檯', fx:'天然瑪瑙小晶洞,外表樸實、剖開卻藏著閃亮晶芽,如雷公藏寶的洞天。象徵藏金納福、內有乾坤;瑪瑙沉穩的大地能量守護平安,小巧尺寸放在桌面、櫃檯都剛剛好。'},
+  {img:'c38.jpg', name:'雷公蛋(款式二)', tag:'擺件', wx:'土', mine:'瑪瑙(隱晶質石英)', body:'桌面・櫃檯', fx:'每一顆雷公蛋剖開都是獨一無二的風景,晶洞中的細小晶芽在光下閃爍。聚財納福的討喜小物,也是認識礦物之美的入門收藏;成對擺放更有「左右逢源」的好寓意。'},
+  {img:'c39.jpg', name:'雷公蛋(款式三)', tag:'擺件', wx:'土', mine:'瑪瑙(隱晶質石英)', body:'桌面・隨身收藏', fx:'小巧可愛的掌心尺寸,天然瑪瑙紋理與晶洞各有姿態。安定心神、守護平安,放在書桌前是療癒的桌上風景;也適合隨身收藏,煩躁時握在手心,感受大地沉穩的溫度。'}
+];
+
+/* ================= carts ================= */
+let cartM = [];
+try { cartM = JSON.parse(localStorage.getItem('lothlorien_cartM')) || []; } catch(e) {}
+function save(){ try{ localStorage.setItem('lothlorien_cartM', JSON.stringify(cartM)); }catch(e){} }
+
+const $ = s => document.querySelector(s);
+function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>el.classList.remove('show'),1800); }
+
+function addM(name, detail, price, range){
+  const key = name + '|' + detail;
+  const f = cartM.find(i=>i.key===key);
+  if(f) f.qty++; else cartM.push({key, name, detail, price, range:!!range, qty:1});
+  save(); renderBadges(); toast('已加入按摩購物車 🌿');
+}
+
+function renderBadges(){
+  const m = cartM.reduce((s,i)=>s+i.qty,0);
+  $('#badgeM').hidden = m===0; $('#badgeM').textContent = m;
+}
+
+/* ---------- service cards ---------- */
+document.querySelectorAll('.svc-card[data-svc]').forEach(card=>{
+  const svc = SVC[card.dataset.svc];
+  const optWrap = card.querySelector('[data-role=opts]');
+  const priceEl = card.querySelector('[data-role=price]');
+  let sel = 0;
+  svc.opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt' + (i===0?' sel':'');
+    b.textContent = o.label;
+    b.addEventListener('click', ()=>{
+      sel = i;
+      optWrap.querySelectorAll('.opt').forEach((x,j)=>x.classList.toggle('sel', j===i));
+      priceEl.textContent = svc.fmt(o);
+    });
+    optWrap.appendChild(b);
+  });
+  priceEl.textContent = svc.fmt(svc.opts[0]);
+  card.querySelector('[data-role=add]').addEventListener('click', ()=>{
+    const o = svc.opts[sel];
+    addM(svc.name, o.label, o.price, !!svc.range);
+  });
+});
+
+/* ---------- addons ---------- */
+const ag = $('#addonGrid');
+ADDONS.forEach(a=>{
+  const d = document.createElement('div');
+  d.className = 'addon';
+  d.innerHTML = `
+    <div class="ph"><img src="${a.img}" alt="${a.name}" loading="lazy"></div>
+    <div class="bd">
+      <b>${a.name}</b>
+      <small>${a.note}</small>
+      <div class="foot"><span class="p">NT$${a.price.toLocaleString()}</span>
+      <button class="mini-add">＋ 加入</button></div>
+    </div>`;
+  d.querySelector('.mini-add').addEventListener('click', ()=>addM('加購|' + a.name, '', a.price));
+  ag.appendChild(d);
+});
+
+/* ---------- crystals catalog ---------- */
+const cg = $('#cryGrid');
+CRYSTALS.forEach(c=>{
+  const d = document.createElement('div');
+  d.className = 'cry';
+  d.innerHTML = `
+    <div class="ph"><img src="images/${c.img}" alt="${c.name}" loading="lazy"><span class="cat">${c.tag}</span></div>
+    <div class="bd">
+      <div class="nm">${c.name}</div>
+      <div class="chips"><span class="chip">五行 · ${c.wx}</span><span class="chip mine">${c.mine}</span></div>
+      <div class="row"><b>功效｜</b>${c.fx}</div>
+      <div class="row"><b>對應部位｜</b>${c.body}</div>
+    </div>`;
+  cg.appendChild(d);
+});
+
+/* ---------- drawers ---------- */
+function openDrawer(id){
+  $('#overlay').hidden = false;
+  ['drawerM','drawerMsg'].forEach(x=>$('#'+x).hidden = (x!==id));
+  if(id==='drawerM') renderM();
+}
+function closeAll(){
+  $('#overlay').hidden = true;
+  ['drawerM','drawerMsg'].forEach(x=>$('#'+x).hidden = true);
+}
+$('#overlay').addEventListener('click', closeAll);
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click', closeAll));
+$('#fabMassage').addEventListener('click', ()=>openDrawer('drawerM'));
+
+function cartRow(item, onQty){
+  const d = document.createElement('div');
+  d.className = 'ci';
+  const pr = item.price != null
+    ? `<span class="pr">NT$${(item.price*item.qty).toLocaleString()}${item.range?'起':''}</span>` : '';
+  d.innerHTML = `
+    <div class="nm"><b>${item.name}</b><small>${item.detail||''}</small></div>
+    <div class="qty"><button data-d="-1">−</button><span>${item.qty}</span><button data-d="1">＋</button></div>
+    ${pr}`;
+  d.querySelectorAll('.qty button').forEach(b=>b.addEventListener('click', ()=>onQty(+b.dataset.d)));
+  return d;
+}
+
+function renderM(){
+  const body = $('#bodyM'); body.innerHTML = '';
+  if(!cartM.length){ body.innerHTML = '<div class="dw-empty">購物車還是空的<br>去挑選喜歡的調理項目吧 🌿</div>'; }
+  cartM.forEach((item,idx)=>{
+    body.appendChild(cartRow(item, d=>{
+      item.qty += d; if(item.qty<=0) cartM.splice(idx,1);
+      save(); renderM(); renderBadges();
+    }));
+  });
+  const total = cartM.reduce((s,i)=>s+i.price*i.qty,0);
+  const hasRange = cartM.some(i=>i.range);
+  $('#totalM').textContent = 'NT$' + total.toLocaleString() + (hasRange?' 起':'');
+}
+
+/* ---------- checkout ---------- */
+$('#checkoutM').addEventListener('click', ()=>{
+  if(!cartM.length){ toast('購物車是空的唷'); return; }
+  const lines = ['🌿 精靈の森|按摩預約單','────────────'];
+  cartM.forEach(i=>{
+    lines.push(`▪ ${i.name}${i.detail?' '+i.detail:''} ×${i.qty}  NT$${(i.price*i.qty).toLocaleString()}${i.range?'起':''}`);
+  });
+  const total = cartM.reduce((s,i)=>s+i.price*i.qty,0);
+  const hasRange = cartM.some(i=>i.range);
+  lines.push('────────────', `合計:NT$${total.toLocaleString()}${hasRange?' 起(區間價依評估)':''}`, '',
+    '姓名:', '希望日期/時段:', '第二志願時段:', '備註(身體狀況等):');
+  $('#msgTitle').textContent = '🌿 預約訊息';
+  $('#msgBox').value = lines.join('\n');
+  openDrawer('drawerMsg');
+});
+
+$('#copyMsg').addEventListener('click', ()=>{
+  const t = $('#msgBox').value;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(()=>toast('已複製!貼到 LINE 即可'), ()=>{ $('#msgBox').select(); toast('請按 Ctrl+C 複製'); });
+  } else { $('#msgBox').select(); toast('請按 Ctrl+C 複製'); }
+});
+
+/* ---------- copy chips ---------- */
+document.querySelectorAll('.copy-chip').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    const v = b.dataset.copy;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(v).then(()=>toast('已複製:' + v), ()=>toast(v));
+    } else { toast(v); }
+  });
+});
+
+renderBadges();
+</script>
+
+</body>
+</html>
